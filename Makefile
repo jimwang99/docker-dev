@@ -1,10 +1,9 @@
 SHELL=/bin/bash
 
-target=setup
+tag=0.1
 
-build:
+run:
+	docker run -dit --name dev -v ~/work:/mnt/work dev:$(tag)
 
-
-build-setup:
-	make build target=setup
-
+bash:
+	docker exec -it dev /bin/bash
