@@ -1,2 +1,2 @@
-FROM ubuntu:18.10
-COPY ./*.sh /root/docker-script/
+FROM ubuntu:16.04
+RUN apt-get update

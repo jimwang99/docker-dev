@@ -1,9 +1,10 @@
 SHELL=/bin/bash
 
-tag=0.1
+name=riscv
+tag=v0.0
 
 run:
-	docker run -dit --name dev -v ~/work:/mnt/work dev:$(tag)
+	docker run -dit --name $(name) -v /Users/jw/docker-shared:/mnt/host $(name):$(tag)
 
 bash:
-	docker exec -it dev /bin/bash
+	docker exec -it $(name) /bin/bash
