@@ -1,0 +1,11 @@
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+
+alias ls='ls --color'
+
+alias rv64gc='export RISCV=/opt/riscv/rv64gc'
+alias rv32gc='export RISCV=/opt/riscv/rv32gc'
+alias rv64i='export RISCV=/opt/riscv/rv64i'

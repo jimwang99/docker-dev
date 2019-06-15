@@ -1,17 +1,35 @@
 SHELL=/bin/bash
 
 name=riscv
-tag=v0.0
 
-# run:
-#         docker run -dit --name $(name) -v /Users/jw/docker-shared:/mnt/host $(name):$(tag)
+#===========================================================
+# Build image version 0 from consol/centos-xfce-vnc
 
-bash:
-	docker exec -it --user $(shell id -u):$(shell id -g) $(name) /bin/bash
+build:
+	docker build -t "$(name):v0" .
 
-root-bash:
-	docker exec -it --user root $(name) /bin/bash
+#===========================================================
+# run image as container
 
+run-%:
+	make run version=v$(word 2,$(subst -, ,$@))
 
 run:
-	docker run -dit -p 5901:5901 -p 6901:6901 --user 0 --name $(name) -v /Users/jw/docker:/mnt/host consol/ubuntu-xfce-vnc
+	docker run -dit -p 5901:5901 --user 0 -v /Users/jw/docker:/mnt/host \
+	    --name "$(name)-$(version)" \
+	    $(name):$(version)
+
+#===========================================================
+# connect to container
+
+bash-%:
+	make bash version=v$(word 2,$(subst -, ,$@))
+
+bash:
+	docker exec -it --user root "$(name)-$(version)" /bin/bash
+
+#===========================================================
+# run latex image & bash to it
+
+bash-latex:
+	docker run -it --user 0 -v /Users/jw/docker:/mnt/host --rm --name latex aergus/latex /bin/bash
